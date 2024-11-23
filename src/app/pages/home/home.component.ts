@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { CardComponent } from "../../shared/components/card/card.component";
+import { ExperiencesComponent } from "../experiences/experiences.component";
+import { CardsModel } from '../../shared/models/cards-model';
 
 @Component({
     selector: 'app-home',
-    imports: [CardComponent],
+    imports: [CardComponent, ExperiencesComponent],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  cards = [
+  cards: CardsModel[] = [
     {
       image: "../assets/images/mi-carnaval.jpeg",
       title: "Historia de los Carnavales Blancos y Negros",

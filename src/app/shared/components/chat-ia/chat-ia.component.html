@@ -1,7 +1,7 @@
 <!-- Drawer (Panel deslizante) -->
 <div id="chatDrawer" class="fixed inset-y-0 right-0 w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-20">
   <div class="p-4 border-b flex justify-between items-center">
-    <h2 class="text-lg font-semibold text-gray-800">Chat</h2>
+    <h2 class="text-lg font-semibold text-gray-800">Asistente IA</h2>
     <button id="closeDrawer" (click)="closeDrawer()" class="text-gray-600 hover:text-gray-800">
       <!-- SVG del icono de cerrar -->
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -9,21 +9,8 @@
       </svg>
     </button>
   </div>
-  <div class="p-4">
-    <div class="text-gray-600 text-sm">
-      <p>Bienvenido al chat de Mi Carnaval. ¿En qué podemos ayudarte?</p>
-    </div>
-    <input
-      (keyup.enter)="sendMessage()"
-      type="text"
-      name="userMessage"
-      [(ngModel)]="userMessage"
-      placeholder="Escribe tu mensaje..."
-      class="w-full mt-4 p-2 border rounded-md">
-  </div>
-
   <div class="flex flex-col h-screen p-2">
-    <div class="flex-1 overflow-auto space-y-4">
+    <div class="flex-1 overflow-auto space-y-4 max-h-[80vh]">
       @for (message of chatHistory; track $index) {
         @if (message.role === 'user') {
           <!-- Mensaje del usuario -->
@@ -43,5 +30,17 @@
         }
       }
     </div>
+  </div>
+  <div class="w-full fixed bottom-0 p-4 bg-white border-t">
+    <div class="text-gray-600 text-sm">
+      <p>{{ chat_message }}</p>
+    </div>
+    <input
+      (keyup.enter)="sendMessage()"
+      type="text"
+      name="userMessage"
+      [(ngModel)]="userMessage"
+      placeholder="Escribe tu mensaje..."
+      class="w-full mt-4 p-2 border rounded-md">
   </div>
 </div>
