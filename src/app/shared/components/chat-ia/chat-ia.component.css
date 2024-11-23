@@ -1,5 +1,5 @@
 #chatDrawer {
   width: 100%; /* Ajuste para pantallas pequeñas */
   max-width: 20rem; /* Ajuste para pantallas grandes */
-  z-index: 1200;
+  z-index: 2700;
 }

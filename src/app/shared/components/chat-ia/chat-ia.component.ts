@@ -14,6 +14,7 @@ export class ChatIaComponent {
   isOpen = false;
   userMessage: string = '';
   chatHistory: { role: string, content: string }[] = [];
+  chat_message: string = 'Soy el asistente IA de Mi Carnaval. ¿En qué puedo ayudarte?';
 
   constructor(private openAiService: OpenAiChatService) { }
 
@@ -23,10 +24,14 @@ export class ChatIaComponent {
 
     // Agregar el mensaje del usuario al historial
     this.chatHistory.push({ role: 'user', content: this.userMessage });
+    this.setChatMessage('El asistente IA está respondiendo...');
 
     // Llamar al servicio
     this.openAiService.sendMessage(this.userMessage)
-      .pipe(finalize(() => this.userMessage = '' ))
+      .pipe(finalize(() => {
+        this.userMessage = '';
+        this.setChatMessage('¿Cuál es tu siguiente pregunta?');
+      }))
       .subscribe(
         response => {
           const reply = response.choices[0].message.content;
@@ -37,6 +42,12 @@ export class ChatIaComponent {
         }
 
       );
+  }
+
+  setChatMessage(message: string) {
+    if(this.chatHistory.length > 0) {
+      this.chat_message = message;
+    }
   }
 
   // Función para abrir el drawer

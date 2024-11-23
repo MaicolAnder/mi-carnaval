@@ -1,7 +1,12 @@
-<div class="bg-white rounded-lg shadow-md flex m-3 p-4">
-  <img src="{{image}}" alt="Imagen Historia" class="w-20 h-20 rounded-lg object-cover mr-4">
-  <div>
-      <h3 class="text-lg font-semibold text-orange-500">{{title}}</h3>
-      <p class="text-sm text-gray-600 mt-1">{{description}}</p>
-  </div>
+<div class="w-12/12 max-w-md">
+  <!-- Tarjetas -->
+  @for (card of cards; track $index) {
+    <div class="bg-white rounded-lg shadow-md flex p-4 mb-4">
+      <img src="{{card.image}}" alt="Imagen Historia" class="w-20 h-20 rounded-lg object-cover mr-4">
+      <div>
+          <h3 class="text-lg font-semibold text-orange-500">{{card.title}}</h3>
+          <p class="text-sm text-gray-600 mt-1">{{ card.description}}</p>
+      </div>
+    </div>
+  }
 </div>
