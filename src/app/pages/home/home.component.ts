@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
 import { CardComponent } from "../../shared/components/card/card.component";
 import { ExperiencesComponent } from "../experiences/experiences.component";
 import { CardsModel } from '../../shared/models/cards-model';
+import { ExperienceModel } from '../../shared/models/experience-model';
 
 @Component({
     selector: 'app-home',
@@ -10,46 +11,16 @@ import { CardsModel } from '../../shared/models/cards-model';
     styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  cards: CardsModel[] = [
-    {
-      image: "../assets/images/mi-carnaval.jpeg",
-      title: "Historia de los Carnavales Blancos y Negros",
-      description: "Descripción de la historia..."
-    },
-    {
-      image: "../assets/images/mi-carnaval.jpeg",
-      title: "Mejor carroza Blancos y Negros 2024",
-      description: "Descripción de la mejor carroza..."
-    },
-    {
-      image: "../assets/images/mi-carnaval.jpeg",
-      title: "Programación blancos y negros",
-      description: "Descripción de la programación..."
-    },
-    {
-      image: "../assets/images/mi-carnaval.jpeg",
-      title: "Conciertos blancos y negros",
-      description: "Descripción de los conciertos..."
-    },{
-      image: "../assets/images/mi-carnaval.jpeg",
-      title: "Historia de los Carnavales Blancos y Negros",
-      description: "Descripción de la historia..."
-    },
-    {
-      image: "../assets/images/mi-carnaval.jpeg",
-      title: "Mejor carroza Blancos y Negros 2024",
-      description: "Descripción de la mejor carroza..."
-    },
-    {
-      image: "../assets/images/mi-carnaval.jpeg",
-      title: "Programación blancos y negros",
-      description: "Descripción de la programación..."
-    },
-    {
-      image: "../assets/images/mi-carnaval.jpeg",
-      title: "Conciertos blancos y negros",
-      description: "Descripción de los conciertos..."
-    }
-  ];
+  cards: CardsModel[] = [];
+  selectedExperience: ExperienceModel | null = null;
 
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private zone: NgZone
+  ) { }
+
+  onExperienceSelected(experience: ExperienceModel) {
+      this.selectedExperience = experience;
+      this.cards = this.selectedExperience?.informacion;
+  }
 }

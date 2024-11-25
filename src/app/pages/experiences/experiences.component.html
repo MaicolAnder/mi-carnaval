@@ -1,20 +1,31 @@
-  <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-lg ">
+  <div class="bg-white shadow-lg rounded-lg p-6 w-full">
     <!-- Título: Ubicación y nombre del carnaval -->
     <div>
-      <h2 class="text-2xl font-bold text-gray-800">Carnaval de Pasto</h2>
-      <p class="text-gray-600">Ubicación: Nariño, Pasto, Colombia</p>
+      <h2 class="text-2xl font-bold text-gray-800">
+        <div class="w-full">
+          <!-- <label for="countries" class="block mb-2 text-sm font-medium dark:text-gray-700">Select an option</label> -->
+          <select [(ngModel)]="inputExperienceSelected" class="p-2 my-3 bg-gray-50 border border-gray-100 text-gray-600 text-sm rounded-lg block w-full dark:text-gray-600">
+            @for(item of listExperiences; track $index) {
+              <option value="{{item.nombre}}">{{item.nombre}}</option>
+            }
+          </select>
+        </div>
+      </h2>
+      <p class="text-gray-600">Ubicación: {{ getExperience()?.ciudad }}, Colombia</p>
     </div>
-
+    <br>
     <!-- Formulario de calificación con estrellas -->
     <div class="space-y-2">
       <h3 class="text-lg font-semibold">Califica tu experiencia en el evento:</h3>
       <div class="flex space-x-1">
         <!-- Estrellas (puedes usar íconos SVG o emojis) -->
-        <button class="text-yellow-500 text-2xl focus:outline-none">★</button>
-        <button class="text-yellow-500 text-2xl focus:outline-none">★</button>
-        <button class="text-yellow-500 text-2xl focus:outline-none">★</button>
-        <button class="text-gray-400 text-2xl focus:outline-none">★</button>
-        <button class="text-gray-400 text-2xl focus:outline-none">★</button>
+        @for (item of ratingStar; track $index) {
+          <button
+            (click)="setRatingLevel(item)"
+            class="{{ (inputRatingLevel>=item)?'text-yellow-500':'text-gray-400' }} text-2xl focus:outline-none">
+            ★
+          </button>
+        }
       </div>
     </div>
 

@@ -1,7 +1,7 @@
 <div class="flex flex-col md:flex-row justify-between px-4 md:px-16 pt-5 md:space-y-0 md:space-x-8">
   <!-- Contenedor de app-experiences -->
   <div class="w-full justify-center md:w-1/2 mb-4">
-    <app-experiences></app-experiences>
+    <app-experiences (experience)="onExperienceSelected($event)"></app-experiences>
   </div>
 
   <!-- Contenedor de app-card -->

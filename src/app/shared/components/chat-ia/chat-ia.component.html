@@ -35,12 +35,21 @@
     <div class="text-gray-600 text-sm">
       <p>{{ chat_message }}</p>
     </div>
-    <input
-      (keyup.enter)="sendMessage()"
-      type="text"
-      name="userMessage"
-      [(ngModel)]="userMessage"
-      placeholder="Escribe tu mensaje..."
-      class="w-full mt-4 p-2 border rounded-md">
+    <div class="relative mt-4">
+      <!-- Input con padding adicional para evitar la superposición del botón -->
+      <input
+        (keyup.enter)="sendMessage()"
+        type="text"
+        name="userMessage"
+        [(ngModel)]="userMessage"
+        placeholder="Escribe tu mensaje..."
+        class="w-full pr-10 p-2 border rounded-md focus:outline-none focus:border-blue-500"
+      >
+      <!-- Botón con icono -->
+      <button (click)="sendMessage()" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+        <span class="text-gray-500 text-lg">&gt;</span>
+      </button>
+    </div>
   </div>
+
 </div>
