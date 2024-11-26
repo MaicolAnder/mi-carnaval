@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { OpenAiChatService } from '../../services/open-ai-chat.service';
 import { FormsModule, NgModel } from '@angular/forms';
 import { error } from 'console';
@@ -12,7 +12,7 @@ import { DeviceInfoService } from '../../../core/services/device-info.service';
     templateUrl: './chat-ia.component.html',
     styleUrl: './chat-ia.component.css'
 })
-export class ChatIaComponent {
+export class ChatIaComponent implements OnInit {
   isOpen = false;
   userMessage: string = '';
   chatHistory: { role: string, content: string }[] = [];
@@ -24,8 +24,13 @@ export class ChatIaComponent {
     private device: DeviceInfoService
   ) {
     this.visitorId = device.getVisitorId();
+
   }
 
+  ngOnInit(): void {
+    this.visitorId = this.device.getVisitorId();
+    console.log(this.visitorId);
+  }
 
   sendMessage() {
     if (this.userMessage.trim() === '') return;
@@ -35,7 +40,7 @@ export class ChatIaComponent {
     this.setChatMessage('El asistente IA está respondiendo...');
 
     // Llamar al servicio
-    this.openAiService.sendMessageStream(this.visitorId, this.userMessage)
+    this.openAiService.sendMessageStream(this.device.getVisitorId(), this.userMessage)
       .pipe(finalize(() => {
         this.userMessage = '';
         this.setChatMessage('¿Cuál es tu siguiente pregunta?');
