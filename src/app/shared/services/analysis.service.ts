@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AnalysisChart } from '../models/analysis-chart';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnalysisService {
-  readonly baseUrl = 'https://y1tomtyldh.execute-api.us-east-1.amazonaws.com/analisis/pasto';
+  readonly baseUrl = environment.aws_host + '/analisis/pasto';
 
   constructor(
     private httpClient: HttpClient

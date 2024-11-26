@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
   appName: 'Mi Carnaval',
-  key_openapi: ''
+  aws_host: 'https://y1tomtyldh.execute-api.us-east-1.amazonaws.com'
 };

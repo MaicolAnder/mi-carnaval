@@ -21,16 +21,18 @@ export interface DoughnutModel {
 })
 export class AnalysisComponent implements OnInit {
   public isLoading: boolean = true;
-  public chart: any = null;
+  public chartDoughnut: any = null;
+  public chartLine: any = null;
   private utils: ChartJsUtils;
   private doughnutModel: DoughnutModel[] = [];
+  private lineModel: AnalysisChart[] = [];
 
   constructor(
     private analysisService: AnalysisService
   ){
     this.utils = new ChartJsUtils();
     this.getAnalysis();
-    console.log('ENVIRONMENT', environment.key_openapi);
+    console.log('ENVIRONMENT', '');
   }
 
   ngOnInit(): void {
@@ -42,6 +44,7 @@ export class AnalysisComponent implements OnInit {
       .pipe(finalize( () => this.setChart()))
       .subscribe(analisisPasto => {
         this.doughnutModel = this.groupData(analisisPasto);
+        this.lineModel = analisisPasto;
       });
 
   }
@@ -68,7 +71,7 @@ export class AnalysisComponent implements OnInit {
       ]
     };
     // Creamos la gráfica
-    this.chart = new Chart(
+    this.chartDoughnut = new Chart(
       'chart',
       {
         type: 'doughnut',
@@ -81,6 +84,63 @@ export class AnalysisComponent implements OnInit {
           }
         }
       });
+
+  // nueva instancia de Chart.js
+    const data_line = {
+      labels: this.getUniqueYears(this.lineModel),
+      datasets: this.lineChart(),
+    };
+
+    this.chartLine = new Chart(
+      'chartline',
+      {
+        type: 'line',
+        data: data_line,
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Chart.js Line Chart'
+            }
+          }
+        },
+      });
+  }
+
+  getUniqueCountries(data: AnalysisChart[]) {
+    const uniqueCountries = new Set<string>();
+    data.forEach(item => uniqueCountries.add(item.pais));
+    return Array.from(uniqueCountries);
+  }
+
+  getUniqueYears(data: AnalysisChart[]) {
+    const uniqueYears = new Set<number>();
+    data.forEach(item => uniqueYears.add(item.anio));
+    return Array.from(uniqueYears);
+  }
+
+  lineChart(): {label: string, data: number, borderColor: string, backgroundColor: string[]}[] {
+    const data: {label: string, data: number, borderColor: string, backgroundColor: string[]}[] = [];
+    this.doughnutModel.forEach(f => {
+      data.push( {
+          label: f.pais,
+          data: f.total,
+          borderColor: this.utils.CHART_COLORS.blue,
+          backgroundColor: [
+            this.utils.transparentize(this.utils.CHART_COLORS.red, 0.5),
+            this.utils.transparentize(this.utils.CHART_COLORS.orange, 0.5),
+            this.utils.transparentize(this.utils.CHART_COLORS.yellow, 0.5),
+            this.utils.transparentize(this.utils.CHART_COLORS.green, 0.5),
+            this.utils.transparentize(this.utils.CHART_COLORS.blue, 0.5),
+          ],
+        })
+    })
+    console.log('result', data);
+    return data;
   }
 
   groupData(data: AnalysisChart[]): DoughnutModel[] {

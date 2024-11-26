@@ -1,9 +1,17 @@
-<div class="px-4 py-2 md:px-10 md:py-3">
-  <ng-container *ngIf="isLoading">
-    <app-loading [size]="12" [color]="'red-500'" [borderColor]="'teal-400'"></app-loading>
-  </ng-container>
-  <p class="text-sm md:text-base">Visitantes por país</p>
-  <div class="container mx-auto" style="max-width: 50%;">
-    <canvas id="chart"></canvas>
+<div class="px-10 py-3">
+@if(isLoading){
+   <app-loading [size]="12" [color]="'red-500'" [borderColor]="'teal-400'"></app-loading>
+}
+<!--
+<p>Visitantes por país</p>
+<div class="container" width="50%">
+  <canvas id="chartline">{{ chartLine }}</canvas>
+</div>
+-->
+  <p>Visitantes por país</p>
+  <div class="container" width="50%">
+    <canvas id="chart">{{ chartDoughnut }}</canvas>
   </div>
+
+  <br><br><br>
 </div>

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, NgZone, Output } from '@angular/core';
 import { CardComponent } from "../../shared/components/card/card.component";
 import { ExperiencesComponent } from "../experiences/experiences.component";
 import { CardsModel } from '../../shared/models/cards-model';
@@ -11,6 +11,7 @@ import { ExperienceModel } from '../../shared/models/experience-model';
     styleUrl: './home.component.css'
 })
 export class HomeComponent {
+  // @Output() experience = new EventEmitter<ExperienceModel>();
   cards: CardsModel[] = [];
   selectedExperience: ExperienceModel | null = null;
 
@@ -22,5 +23,8 @@ export class HomeComponent {
   onExperienceSelected(experience: ExperienceModel) {
       this.selectedExperience = experience;
       this.cards = this.selectedExperience?.informacion;
+      /// localStorage.setItem('experience', JSON.stringify(experience));
+
+      // this.experience.emit(experience);
   }
 }
