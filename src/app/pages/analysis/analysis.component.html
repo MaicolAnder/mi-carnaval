@@ -3,9 +3,16 @@
 @if(isLoading){
    <app-loading [size]="12" [color]="'red-500'" [borderColor]="'teal-400'"></app-loading>
 }
+<!--
+<p>Visitantes por país</p>
+<div class="container" width="50%">
+  <canvas id="chartline">{{ chartLine }}</canvas>
+</div>
+-->
   <p>Visitantes por país</p>
   <div class="container" width="50%">
-    <canvas id="chart">{{ chart }}</canvas>
+    <canvas id="chart">{{ chartDoughnut }}</canvas>
   </div>
 
+  <br><br><br>
 </div>
